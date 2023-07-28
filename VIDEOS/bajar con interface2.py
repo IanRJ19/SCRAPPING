@@ -14,12 +14,12 @@ def accion():
 def popup():
     MessageBox.showinfo("Sobre mí","Enlace a mi perfil de LinkedIn:\nhttps://www.linkedin.com/in/maalfer1/")
 
- 
+
 root = Tk()
 root.config(bd=15)
 root.title("Script descargar vídeos")
 
-imagen = PhotoImage(file="C:/Users/Rayzek/Documents/PROYECTOS_PROGRAMACIÓN/UNIR_VIDEOS/youtube.png")
+imagen = PhotoImage(file="VIDEOS/youtube.png")
 foto = Label(root, image=imagen, bd=0)
 foto.grid(row=0, column=0)
 

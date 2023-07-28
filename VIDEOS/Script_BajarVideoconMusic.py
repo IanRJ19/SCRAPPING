@@ -23,8 +23,8 @@ print("Descargando")
 print("\t",yt.streams.filter(adaptive=True).order_by("resolution").desc().first())
 print("\t",yt.streams.filter(only_audio=True).order_by("abr").desc().first())
 
-video = yt.streams.filter(adaptive=True).order_by("resolution").desc().first().download(output_path="C:/Users/Rayzek/Documents/PROYECTOS_PROGRAMACIÓN/UNIR_VIDEOS")
-audio = yt.streams.filter(only_audio=True).order_by("abr").desc().first().download(output_path="C:/Users/Rayzek/Documents/PROYECTOS_PROGRAMACIÓN/UNIR_VIDEOS")
+video = yt.streams.filter(adaptive=True).order_by("resolution").desc().first().download(output_path="VIDEOS/ALMACEN")
+audio = yt.streams.filter(only_audio=True).order_by("abr").desc().first().download(output_path="VIDEOS/ALMACEN")
 
 print("Termino, adios!")
 
