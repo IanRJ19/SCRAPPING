@@ -2,7 +2,7 @@ from pytube import YouTube
 import ffmpeg
 import os
 
-link = "https://www.youtube.com/watch?v=G-3Mi5Q_Q8Y"
+link = "https://www.youtube.com/watch?v=HInmEcbFyF0&t=73s"
 yt = YouTube(link)
 
 print("Su video es:")
@@ -20,7 +20,7 @@ print("\tDuracion:",f"{horas}:{minutos}:{segundos}")
 
 print("Descargando")
 
-print("\t",yt.streams.filter(adaptive=True).order_by("resolution").desc().first())
+print("\t",yt.streams.filter(only_video=True).order_by("resolution").desc().first())
 print("\t",yt.streams.filter(only_audio=True).order_by("abr").desc().first())
 
 video_stream = yt.streams.filter(only_video=True).order_by('resolution').desc().first()
@@ -38,7 +38,9 @@ audio_stream.download(output_path="VIDEOS/ALMACEN", filename=audio_filename)
 input_video = ffmpeg.input(f'VIDEOS/ALMACEN/{video_filename}')
 input_audio = ffmpeg.input(f'VIDEOS/ALMACEN/{audio_filename}')
 
-ffmpeg.output(input_video, input_audio, f'VIDEOS/ALMACEN/{output_filename}.mp4', c='copy').run()
+ffmpeg.output(input_video, input_audio, f'VIDEOS/ALMACEN/{output_filename}.mkv', c='copy').run()
+#EN OTRO TIPO DE CODEC
+#ffmpeg.concat(input_video, input_audio, v=1, a=1).output(f'VIDEOS/ALMACEN/{output_filename}.mkv').run()
 
 # Removing the intermediate files
 os.remove(f'VIDEOS/ALMACEN/{video_filename}')
