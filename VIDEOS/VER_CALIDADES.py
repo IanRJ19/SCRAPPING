@@ -1,6 +1,6 @@
 from pytube import YouTube
 
-link = "https://www.youtube.com/watch?v=jRxDUsGmwuc"
+link = "https://www.youtube.com/watch?v=qWvbOmT7rTw"
 yt = YouTube(link)
 
 # se muestra informacion del video
@@ -19,10 +19,9 @@ print("\tDuracion:", f"{horas}:{minutos}:{segundos}")
 
 # mostrar todas las opciones de calidad disponibles
 print("Opciones de calidad disponibles para descargar:")
-streams = yt.streams.all()
-for i, stream in enumerate(streams):
-    print(f"\tOpción {i+1}: {stream}")
-
+streams = yt.streams
+for e in streams:
+    print(e)
 # aqui puedes seleccionar una opción específica para descargar
 # por ejemplo, para descargar la primera opción:
 # primera_opcion = streams[0]
