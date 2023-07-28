@@ -7,8 +7,8 @@ def download():
     video_url = url.get()
     try:
         yt= YouTube(video_url)
-        video = yt.streams.filter(adaptive=True).order_by("resolution").desc().first().download(output_path="C:/Users/Rayzek/Documents/PROYECTOS_PROGRAMACIÓN/UNIR_VIDEOS")
-        audio = yt.streams.filter(only_audio=True).order_by("abr").desc().first().download(output_path="C:/Users/Rayzek/Documents/PROYECTOS_PROGRAMACIÓN/UNIR_VIDEOS")
+        video = yt.streams.filter(adaptive=True).order_by("resolution").desc().first().download(output_path="VIDEOS/ALMACEN")
+        audio = yt.streams.filter(only_audio=True).order_by("abr").desc().first().download(output_path="VIDEOS/ALMACEN")
         notif.config(fg="green", text="Descarga completa")
     except Exception as e:
         print(e)

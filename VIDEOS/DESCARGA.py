@@ -2,7 +2,7 @@ from pytube import YouTube
 import ffmpeg
 from os import remove
 
-link = "https://www.youtube.com/watch?v=tz82xbLvK_k"
+link = "https://www.youtube.com/watch?v=G-3Mi5Q_Q8Y"
 yt = YouTube(link)
 
 # se muestra informacion del video
@@ -23,7 +23,7 @@ print("Descargando")
 print("\t",yt.streams.filter(adaptive=True).order_by("resolution").desc().first())
 print("\t",yt.streams.filter(only_audio=True).order_by("abr").desc().first())
 
-video = yt.streams.filter(adaptive=True).order_by("resolution").desc().first().download(output_path="VIDEOS/ALMACEN")
+#video = yt.streams.filter(adaptive=True).order_by("resolution").desc().first().download(output_path="VIDEOS/ALMACEN")
 audio = yt.streams.filter(only_audio=True).order_by("abr").desc().first().download(output_path="VIDEOS/ALMACEN")
 
 print("Termino, adios!")
