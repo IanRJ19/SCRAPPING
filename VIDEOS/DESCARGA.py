@@ -2,50 +2,57 @@ from pytube import YouTube
 import ffmpeg
 import os
 
-link = "https://www.youtube.com/watch?v=qWvbOmT7rTw"
-yt = YouTube(link)
+# La lista de enlaces
+links = ["https://www.youtube.com/watch?v=AwmvwTopbas",
+         "https://www.youtube.com/watch?v=Zf9U1O7qFWc",
+         "https://www.youtube.com/watch?v=JdDJRhBuypU",
+         "https://www.youtube.com/watch?v=bxLMqst4ut4"]
 
-print("Su video es:")
-print("\tTitulo:", yt.title)
-print("\tAutor:", yt.author)
+# Itera a través de cada enlace en la lista
+for link in links:
+    yt = YouTube(link)
 
-duracion = yt.length
-horas = int(duracion/60/60)
-duracion -= horas*60*60
-minutos = int((duracion)/60)
-duracion -= minutos*60
-segundos = int(duracion)
+    print("Su video es:")
+    print("\tTitulo:", yt.title)
+    print("\tAutor:", yt.author)
 
-print("\tDuracion:", f"{horas}:{minutos}:{segundos}")
+    duracion = yt.length
+    horas = int(duracion/60/60)
+    duracion -= horas*60*60
+    minutos = int((duracion)/60)
+    duracion -= minutos*60
+    segundos = int(duracion)
 
-print("Descargando")
+    print("\tDuracion:", f"{horas}:{minutos}:{segundos}")
 
-print("\t", yt.streams.filter(only_video=True).order_by("resolution").desc().first())
-print("\t", yt.streams.filter(only_audio=True).order_by("abr").desc().first())
+    print("Descargando")
 
-video_stream = yt.streams.filter(only_video=True).order_by('resolution').desc().first()
-audio_stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
+    print("\t", yt.streams.filter(only_video=True).order_by("resolution").desc().first())
+    print("\t", yt.streams.filter(only_audio=True).order_by("abr").desc().first())
 
-# Create a list of allowed characters
-allowed_chars = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_ ")
+    video_stream = yt.streams.filter(only_video=True).order_by('resolution').desc().first()
+    audio_stream = yt.streams.filter(only_audio=True).order_by('abr').desc().first()
 
-# Clean the video title
-filename = "".join(c if c in allowed_chars else "_" for c in yt.title)
+    # Create a list of allowed characters
+    allowed_chars = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_ ")
 
-video_filename = f"{filename}_video"
-audio_filename = f"{filename}_audio"
-output_filename = f"{filename}_MIX"
+    # Clean the video title
+    filename = "".join(c if c in allowed_chars else "_" for c in yt.title)
 
-video_stream.download(output_path="VIDEOS/ALMACEN", filename=video_filename)
-audio_stream.download(output_path="VIDEOS/ALMACEN", filename=audio_filename)
+    video_filename = f"{filename}_video"
+    audio_filename = f"{filename}_audio"
+    output_filename = f"{filename}_MIX"
 
-input_video = ffmpeg.input(f'VIDEOS/ALMACEN/{video_filename}')
-input_audio = ffmpeg.input(f'VIDEOS/ALMACEN/{audio_filename}')
+    video_stream.download(output_path="VIDEOS/ALMACEN", filename=video_filename)
+    audio_stream.download(output_path="VIDEOS/ALMACEN", filename=audio_filename)
 
-ffmpeg.output(input_video, input_audio, f'VIDEOS/ALMACEN/{output_filename}.mkv', c='copy').run()
+    input_video = ffmpeg.input(f'VIDEOS/ALMACEN/{video_filename}')
+    input_audio = ffmpeg.input(f'VIDEOS/ALMACEN/{audio_filename}')
 
-# Removing the intermediate files
-os.remove(f'VIDEOS/ALMACEN/{video_filename}')
-os.remove(f'VIDEOS/ALMACEN/{audio_filename}')
+    ffmpeg.output(input_video, input_audio, f'VIDEOS/ALMACEN/{output_filename}.mkv', c='copy').run()
 
-print("Termino, adios!")
+    # Removing the intermediate files
+    os.remove(f'VIDEOS/ALMACEN/{video_filename}')
+    os.remove(f'VIDEOS/ALMACEN/{audio_filename}')
+
+    print("Termino, adios!")
